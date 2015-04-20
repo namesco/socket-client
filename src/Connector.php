@@ -38,6 +38,7 @@ class Connector implements ConnectorInterface
             $contextOpts['ssl']['SNI_server_name'] = $hostName;
             $contextOpts['ssl']['peer_name'] = $hostName;
         }
+	$contextOpts['ssl']['verify_peer'] = false;
 
         $flags = STREAM_CLIENT_CONNECT | STREAM_CLIENT_ASYNC_CONNECT;
         $context = stream_context_create($contextOpts);
