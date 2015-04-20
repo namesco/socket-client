@@ -35,8 +35,12 @@ class Connector implements ConnectorInterface
         $contextOpts = array();
         if ($hostName !== null) {
             $contextOpts['ssl']['SNI_enabled'] = true;
-            $contextOpts['ssl']['SNI_server_name'] = $hostName;
-            $contextOpts['ssl']['peer_name'] = $hostName;
+            // SNI_server_name was deprecated in 5.6, and replaced with peer_name
+            if (version_compare(PHP_VERSION, '5.6.0', '>=')) {
+                $contextOpts['ssl']['peer_name'] = $hostName;
+            } else {
+                $contextOpts['ssl']['SNI_server_name'] = $hostName;
+            }
         }
 
         $flags = STREAM_CLIENT_CONNECT | STREAM_CLIENT_ASYNC_CONNECT;
