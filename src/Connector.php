@@ -43,6 +43,7 @@ class Connector implements ConnectorInterface
             }
         }
 	$contextOpts['ssl']['verify_peer'] = false;
+	$contextOpts['ssl']['verify_peer_name'] = false;
 
         $flags = STREAM_CLIENT_CONNECT | STREAM_CLIENT_ASYNC_CONNECT;
         $context = stream_context_create($contextOpts);
